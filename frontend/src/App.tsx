@@ -9,11 +9,13 @@ interface Driver {
   points: number
 }
 
+const API_URL = import.meta.env.VITE_API_URL || ''
+
 function App() {
   const [drivers, setDrivers] = useState<Driver[]>([])
 
   useEffect(() => {
-    fetch('/api/drivers')
+    fetch(`${API_URL}/api/drivers`)
       .then((res) => res.json())
       .then((data) => setDrivers(data))
   }, [])
