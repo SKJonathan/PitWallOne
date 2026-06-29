@@ -12,7 +12,7 @@ const drivers = [
     {id: 1, position: 1, name: 'Lando Norris', team: 'McLaren', points: 437},
     {id: 2, position: 2, name: 'Max Verstappen', team: 'Red Bull Racing', points: 374},
     {id: 3, position: 3, name: 'Oscar Piastri', team: 'McLaren', points: 356},
-    {id: 4, position: 4, name: 'Lewis Hamilton', team: 'Ferrai', points: 300},
+    {id: 4, position: 4, name: 'Lewis Hamilton', team: 'Ferrari', points: 300},
 ]
 
 // Routing 
