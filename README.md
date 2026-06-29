@@ -1,4 +1,4 @@
-# ApexOne
+# PitWallOne
 
 A full-stack Formula 1 dashboard, built from scratch as a learning project.
 
