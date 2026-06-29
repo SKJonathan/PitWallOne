@@ -1,10 +1,11 @@
 
 // Will connect to a real database later
 import express from 'express'
-
+import cors from 'cors'
 
 const app = express()
-const PORT = 3001
+app.use(cors())
+const PORT = process.env.PORT || 3001
 
 // Mock data for now
 const drivers = [ 
