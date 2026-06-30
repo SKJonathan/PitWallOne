@@ -58,7 +58,7 @@ return (
 <div className="grid grid-cols-1 lg:grid-cols-3 border-t border-white/10">
 
   {/* Standings */}
-  <section className="lg:col-span-2 bg-carbon p-8">
+  <section className="lg:col-span-1 bg-carbon p-8">
     <h2 className="text-xs font-extrabold uppercase tracking-[0.2em] mb-8 text-white/40 border-l-2 border-f1-red pl-4">
       Championship Standings
     </h2>
@@ -86,15 +86,15 @@ return (
 
   {/* Next Race */}
   <section className="bg-carbon p-8 border-t border-white/10 lg:border-t-0 lg:border-l">
-    <h2 className="text-xs font-extrabold uppercase tracking-[0.2em] mb-8 text-white/40 border-l-2 border-f1-red pl-4">
-      Next Race
+    <h2 className="text-3xl font-extrabold uppercase italic tracking-tighter leading-none">
+      The Circut
     </h2>
 
-    <p className="text-3xl font-extrabold uppercase italic tracking-tighter leading-none">
+    {/* <p className="text-3xl font-extrabold uppercase italic tracking-tighter leading-none">
       Silverstone <br /> Grand Prix
-    </p>
-    <p className="mt-3 text-white/40 font-mono text-xs uppercase tracking-wider">
-      Great Britain
+    </p> */}
+    <p className="mt-3 text-white/40 font-mono text-xs uppercase tracking-wider/ 40 border-l-2 border-f1-red pl-4">
+      Silverstone, Great Britain
     </p>
 
     <div className="mt-8 space-y-4">
@@ -111,8 +111,16 @@ return (
         <span className="font-mono font-bold text-sm">06 JUL</span>
       </div>
     </div>
+    
   </section>
 
+
+  {/* COUNTDOWN TO NEXT RACE */}
+  <section className="bg-carbon p-8 border-t border-white/10 lg:border-t-0 lg:border-l">
+    <h2 className="text-3xl font-extrabold uppercase italic tracking-tighter leading-none">
+      Race Window
+    </h2>
+  </section>
 </div>
 
   </div>
