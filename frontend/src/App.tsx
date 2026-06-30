@@ -54,32 +54,66 @@ return (
   </div>
 </header>
 
-{/* Standings */}
-<section className="bg-carbon p-8 border-t border-white/10">
-  <h2 className="text-xs font-extrabold uppercase tracking-[0.2em] mb-8 text-white/40 border-l-2 border-f1-red pl-4">
-    Championship Standings
-  </h2>
+{/* Standings + Next Race */}
+<div className="grid grid-cols-1 lg:grid-cols-3 border-t border-white/10">
 
-  <div className="space-y-5">
-    {drivers.map((driver, i) => (
-      <div key={driver.id} className="flex items-center justify-between border-b border-white/5 pb-4 last:border-0">
-        <div className="flex items-center gap-4">
-          <span className={`font-mono font-bold ${i === 0 ? 'text-f1-red' : 'text-white/40'}`}>
-            {driver.position}
-          </span>
-          <div>
-            <p className="font-extrabold uppercase text-sm">{driver.name}</p>
-            <p className="text-[10px] text-white/40 uppercase tracking-wider">{driver.team}</p>
+  {/* Standings */}
+  <section className="lg:col-span-2 bg-carbon p-8">
+    <h2 className="text-xs font-extrabold uppercase tracking-[0.2em] mb-8 text-white/40 border-l-2 border-f1-red pl-4">
+      Championship Standings
+    </h2>
+
+    <div className="space-y-5">
+      {drivers.map((driver, i) => (
+        <div key={driver.id} className="flex items-center justify-between border-b border-white/5 pb-4 last:border-0">
+          <div className="flex items-center gap-4">
+            <span className={`font-mono font-bold ${i === 0 ? 'text-f1-red' : 'text-white/40'}`}>
+              {driver.position}
+            </span>
+            <div>
+              <p className="font-extrabold uppercase text-sm">{driver.name}</p>
+              <p className="text-[10px] text-white/40 uppercase tracking-wider">{driver.team}</p>
+            </div>
+          </div>
+          <div className="text-right">
+            <p className="font-mono font-bold">{driver.points}</p>
+            <p className="text-[10px] uppercase text-white/20">PTS</p>
           </div>
         </div>
-        <div className="text-right">
-          <p className="font-mono font-bold">{driver.points}</p>
-          <p className="text-[10px] uppercase text-white/20">PTS</p>
-        </div>
+      ))}
+    </div>
+  </section>
+
+  {/* Next Race */}
+  <section className="bg-carbon p-8 border-t border-white/10 lg:border-t-0 lg:border-l">
+    <h2 className="text-xs font-extrabold uppercase tracking-[0.2em] mb-8 text-white/40 border-l-2 border-f1-red pl-4">
+      Next Race
+    </h2>
+
+    <p className="text-3xl font-extrabold uppercase italic tracking-tighter leading-none">
+      Silverstone <br /> Grand Prix
+    </p>
+    <p className="mt-3 text-white/40 font-mono text-xs uppercase tracking-wider">
+      Great Britain
+    </p>
+
+    <div className="mt-8 space-y-4">
+      <div className="flex items-center justify-between border-b border-white/5 pb-3">
+        <span className="text-[10px] uppercase tracking-wider text-white/40">Laps</span>
+        <span className="font-mono font-bold text-sm">52</span>
       </div>
-    ))}
-  </div>
-</section>
+      <div className="flex items-center justify-between border-b border-white/5 pb-3">
+        <span className="text-[10px] uppercase tracking-wider text-white/40">Length</span>
+        <span className="font-mono font-bold text-sm">5.891 km</span>
+      </div>
+      <div className="flex items-center justify-between">
+        <span className="text-[10px] uppercase tracking-wider text-white/40">Date</span>
+        <span className="font-mono font-bold text-sm">06 JUL</span>
+      </div>
+    </div>
+  </section>
+
+</div>
 
   </div>
 )
