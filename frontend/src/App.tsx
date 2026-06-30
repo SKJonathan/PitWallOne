@@ -12,13 +12,33 @@ interface Driver {
 
 const API_URL = import.meta.env.VITE_API_URL || ''
 
+const RACE_DATE = new Date('2026-07-06T15:00:00')
+
+function getTimeLeft(target: Date) {
+  const total = target.getTime() - Date.now()
+  if (total <= 0) {
+    return { total: 0, days: 0, hours: 0, minutes: 0, seconds: 0 }
+  }
+  const days = Math.floor(total / (1000 * 60 * 60 * 24))
+  const hours = Math.floor((total / (1000 * 60 * 60)) % 24)
+  const minutes = Math.floor((total / (1000 * 60)) % 60)
+  const seconds = Math.floor((total / 1000) % 60)
+  return { total, days, hours, minutes, seconds }
+}
+
 function App() {
   const [drivers, setDrivers] = useState<Driver[]>([])
+  const [timeLeft, setTimeLeft] = useState(() => getTimeLeft(RACE_DATE))
 
   useEffect(() => {
     fetch(`${API_URL}/api/drivers`)
       .then((res) => res.json())
       .then((data) => setDrivers(data))
+  }, [])
+
+  useEffect(() => {
+    const id = setInterval(() => setTimeLeft(getTimeLeft(RACE_DATE)), 1000)
+    return () => clearInterval(id)
   }, [])
 
 return (
@@ -120,6 +140,31 @@ return (
     <h2 className="text-3xl font-extrabold uppercase italic tracking-tighter leading-none">
       Race Window
     </h2>
+
+    <div className="mt-8 grid grid-cols-4 gap-2 text-center border border-white/10 p-3 rounded">
+      <div className="border border-white/10 rounded py-3">
+        <p className="font-mono font-extrabold text-2xl">{timeLeft.days}</p>
+        <p className="text-[10px] uppercase tracking-wider text-white/40">Days</p>
+      </div>
+      <div className="border border-white/10 rounded py-3">
+        <p className="font-mono font-extrabold text-2xl">{String(timeLeft.hours).padStart(2, '0')}</p>
+        <p className="text-[10px] uppercase tracking-wider text-white/40">Hrs</p>
+      </div>
+      <div className="border border-white/10 rounded py-3">
+        <p className="font-mono font-extrabold text-2xl">{String(timeLeft.minutes).padStart(2, '0')}</p>
+        <p className="text-[10px] uppercase tracking-wider text-white/40">Min</p>
+      </div>
+      <div className="border border-white/10 rounded py-3">
+        <p className="font-mono font-extrabold text-2xl text-f1-red">{String(timeLeft.seconds).padStart(2, '0')}</p>
+        <p className="text-[10px] uppercase tracking-wider text-white/40">Sec</p>
+      </div>
+    </div>
+
+    {timeLeft.total <= 0 && (
+      <p className="mt-6 font-mono text-xs uppercase tracking-wider text-f1-red">
+        Lights out
+      </p>
+    )}
   </section>
 </div>
 
