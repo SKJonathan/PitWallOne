@@ -32,6 +32,33 @@ app.get('/api/drivers', async(req, res) => {
     res.json(drivers)
 })
 
+app.get('/api/next-race', async(req, res) =>{
+    const response = await fetch('https://api.jolpi.ca/ergast/f1/current/next.json')
+    const data = await response.json()
+    const race = data.MRData.RaceTable.Races[0]
+    const nextRace = {
+        raceName: race.raceName,
+        circuit: race.Circuit.circuitName, 
+        locatity: race.Circuit.Location.locality,
+        country: race.Circuit.Location.country,
+        date: race.date,
+        
+    }
+
+})
+
+app.get('/api/next-qualifying', async(req, res) =>{
+    const response = await fetch('https://api.jolpi.ca/ergast/f1/current/next.json')
+    const data = await response.json()
+    const race = data.MRData.RaceTable.Races[0]
+    const nextRace = {
+        qualifyingDate: race.Qualifying.date,
+        qualifyingTime: race.Qualifying.time, 
+        
+        
+    }
+
+})
 
 app.listen(PORT, () =>{
     console.log(`Backend running on http://localhost:${PORT}`)
