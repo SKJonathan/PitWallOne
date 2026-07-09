@@ -145,7 +145,7 @@ return (
   {/* Next Race */}
   <section className="bg-carbon p-8 border-t border-white/10 lg:border-t-0 lg:border-l">
     <h2 className="text-3xl font-extrabold uppercase italic tracking-tighter leading-none">
-      The Circut
+      The Circuit
     </h2>
 
     {/* <p className="text-3xl font-extrabold uppercase italic tracking-tighter leading-none">
