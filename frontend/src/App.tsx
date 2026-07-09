@@ -21,7 +21,7 @@ interface Race {
 
 const API_URL = import.meta.env.VITE_API_URL || ''
 
-const RACE_DATE = new Date('2026-07-06T15:00:00')
+
 
 function getTimeLeft(target: Date) {
   const total = target.getTime() - Date.now()
@@ -37,7 +37,7 @@ function getTimeLeft(target: Date) {
 
 function App() {
   const [drivers, setDrivers] = useState<Driver[]>([])
-  const [timeLeft, setTimeLeft] = useState(() => getTimeLeft(RACE_DATE))
+  const [timeLeft, setTimeLeft] = useState(() => getTimeLeft(new Date()))
   const [nextRace, setNextRace] = useState<Race | null>(null)
 
   useEffect(() => {
@@ -47,9 +47,11 @@ function App() {
   }, [])
 
   useEffect(() => {
-    const id = setInterval(() => setTimeLeft(getTimeLeft(RACE_DATE)), 1000)
+    if(!nextRace) return
+    const target = new Date(`${nextRace.date}T${nextRace.time}`)
+    const id = setInterval(() => setTimeLeft(getTimeLeft(target)), 1000)
     return () => clearInterval(id)
-  }, [])
+  }, [nextRace])
 
   
   
@@ -58,6 +60,7 @@ function App() {
       .then((res) => res.json())
       .then((data) => setNextRace(data))
   }, [])
+
 
 return (
   <div className="min-h-screen bg-carbon text-white">
