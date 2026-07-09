@@ -10,6 +10,15 @@ interface Driver {
   points: number
 }
 
+interface Race {
+  raceName: string
+  circuit: string
+  locality: string
+  country: string
+  date: string
+  time: string
+}
+
 const API_URL = import.meta.env.VITE_API_URL || ''
 
 const RACE_DATE = new Date('2026-07-06T15:00:00')
@@ -29,6 +38,7 @@ function getTimeLeft(target: Date) {
 function App() {
   const [drivers, setDrivers] = useState<Driver[]>([])
   const [timeLeft, setTimeLeft] = useState(() => getTimeLeft(RACE_DATE))
+  const [nextRace, setNextRace] = useState<Race | null>(null)
 
   useEffect(() => {
     fetch(`${API_URL}/api/drivers`)
@@ -39,6 +49,14 @@ function App() {
   useEffect(() => {
     const id = setInterval(() => setTimeLeft(getTimeLeft(RACE_DATE)), 1000)
     return () => clearInterval(id)
+  }, [])
+
+  
+  
+  useEffect(() => {
+    fetch(`${API_URL}/api/next-race`)
+      .then((res) => res.json())
+      .then((data) => setNextRace(data))
   }, [])
 
 return (
@@ -66,7 +84,8 @@ return (
 
   <div className="relative z-10 max-w-2xl">
     <h1 className="text-6xl md:text-8xl font-extrabold uppercase italic tracking-tighter leading-none">
-      Silverstone <br /> Grand Prix
+      {nextRace?.raceName} 
+      {/* <br /> Grand Prix */}
     </h1>
     <p className="mt-4 text-white/60 font-mono text-sm">
       52 laps under the floodlights.
@@ -104,6 +123,11 @@ return (
     </div>
   </section>
 
+  {/* Right column: Circut + Race Window on top, new div below */}
+  <div className="lg:col-span-2 flex flex-col">
+
+  <div className="grid grid-cols-1 lg:grid-cols-2">
+
   {/* Next Race */}
   <section className="bg-carbon p-8 border-t border-white/10 lg:border-t-0 lg:border-l">
     <h2 className="text-3xl font-extrabold uppercase italic tracking-tighter leading-none">
@@ -114,7 +138,7 @@ return (
       Silverstone <br /> Grand Prix
     </p> */}
     <p className="mt-3 text-white/40 font-mono text-xs uppercase tracking-wider/ 40 border-l-2 border-f1-red pl-4">
-      Silverstone, Great Britain
+      {nextRace?.circuit}, {nextRace?.country}
     </p>
 
     <div className="mt-8 space-y-4">
@@ -166,6 +190,17 @@ return (
       </p>
     )}
   </section>
+
+  </div>
+
+  {/* New section below Circut + Race Window */}
+  <section className="bg-carbon p-8 border-t border-white/10 lg:border-l">
+    <h2 className="text-xs font-extrabold uppercase tracking-[0.2em] text-white/40 border-l-2 border-f1-red pl-4">
+      New Section
+    </h2>
+  </section>
+
+  </div>
 </div>
 
   </div>
