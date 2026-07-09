@@ -22,6 +22,17 @@ interface Race {
 const API_URL = import.meta.env.VITE_API_URL || ''
 
 
+function getMonthDate(stringDate: string){
+  const dateStr = stringDate
+  const date = new Date(dateStr)
+
+  const day = String(date.getDate()).padStart(2, '0');
+  const month = date.toLocaleString('en-GB', {month: 'short'}).toUpperCase();
+
+  const formattedDate = `${day} ${month}`
+
+  return formattedDate
+}
 
 function getTimeLeft(target: Date) {
   const total = target.getTime() - Date.now()
@@ -155,7 +166,7 @@ return (
       </div>
       <div className="flex items-center justify-between">
         <span className="text-[10px] uppercase tracking-wider text-white/40">Date</span>
-        <span className="font-mono font-bold text-sm">06 JUL</span>
+        <span className="font-mono font-bold text-sm">{nextRace? getMonthDate(nextRace.date) : ''}</span>
       </div>
     </div>
     
