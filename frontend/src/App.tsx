@@ -19,6 +19,15 @@ interface Race {
   time: string
 }
 
+interface Weather{
+  trackTemp: number
+  airTemp: number
+  humidity: number
+  rainfall: number
+  windSpeed: number
+  date: string
+}
+
 const API_URL = import.meta.env.VITE_API_URL || ''
 
 
@@ -50,6 +59,8 @@ function App() {
   const [drivers, setDrivers] = useState<Driver[]>([])
   const [timeLeft, setTimeLeft] = useState(() => getTimeLeft(new Date()))
   const [nextRace, setNextRace] = useState<Race | null>(null)
+  const [weather, setWeather] = useState<Weather | null>(null)
+
 
   useEffect(() => {
     fetch(`${API_URL}/api/drivers`)
@@ -64,12 +75,21 @@ function App() {
     return () => clearInterval(id)
   }, [nextRace])
 
-  
-  
-  useEffect(() => {
+    useEffect(() => {
     fetch(`${API_URL}/api/next-race`)
       .then((res) => res.json())
       .then((data) => setNextRace(data))
+  }, [])
+ 
+  useEffect(() => {
+    const getWeather = () => {
+      fetch(`${API_URL}/api/weather`)
+        .then((res) => res.json())
+        .then((data) => setWeather(data))
+    }
+    getWeather()
+    const id = setInterval(getWeather, 30000)
+    return () => clearInterval(id)
   }, [])
 
 
@@ -207,11 +227,45 @@ return (
 
   </div>
 
-  {/* New section below Circut + Race Window */}
-  <section className="bg-carbon p-8 border-t border-white/10 lg:border-l">
-    <h2 className="text-xs font-extrabold uppercase tracking-[0.2em] text-white/40 border-l-2 border-f1-red pl-4">
-      New Section
+  {/* Weather stats*/}
+  <section className="bg-carbon p-8 border-t border-white/10 border-b border-white/10 lg:border-l rounded">
+  <div className='flex flex-row gap-40'>
+    <div>
+      <h2 className="mt-3 text-white/40 font-mono text-xs uppercase tracking-wider">
+      Air-Temp
     </h2>
+      <h2 className="text-3xl font-extrabold uppercase tracking-tighter text-white">
+        {weather?.airTemp}&deg;C 
+    </h2>
+    </div>
+    <div>
+      <h2 className="mt-3 text-white/40 font-mono text-xs uppercase tracking-wider">
+      Track-Temp
+    </h2>
+      <h2 className="text-3xl font-extrabold uppercase tracking-tighter text-white">
+        {weather?.trackTemp}&deg;C 
+    </h2>
+    </div>
+    <div>
+      <h2 className="mt-3 text-white/40 font-mono text-xs uppercase tracking-wider">
+      Humidity
+    </h2>
+      <h2 className="text-3xl font-extrabold uppercase tracking-tighter text-white">
+        {weather?.humidity}%
+    </h2>
+    </div>
+    <div>
+      <h2 className="mt-3 text-white/40 font-mono text-xs uppercase tracking-wider">
+      Wind-Speed
+    </h2>
+      <h2 className="text-3xl font-extrabold lowercase tracking-tighter text-white">
+        {weather?.windSpeed}m/s
+    </h2>
+    </div>
+  </div>
+    {/* <h2 className="text-xs font-extrabold uppercase tracking-[0.2em] text-white/40 border-l-2 border-f1-red pl-4">
+      New Section
+    </h2> */}
   </section>
 
   </div>

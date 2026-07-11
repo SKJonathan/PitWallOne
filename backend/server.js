@@ -52,6 +52,26 @@ app.get('/api/next-qualifying', async(req, res) =>{
 
 })
 
+
+app.get('/api/weather', async(req, res) =>{
+    
+    const response = await fetch('https://api.openf1.org/v1/weather?session_key=latest')
+    const data = await response.json()
+    
+    if (!data.length) return res.json(null)
+        
+    const latest = data[data.length - 1]
+    const weather = {
+        trackTemp: latest.track_temperature,
+        airTemp: latest.air_temperature, 
+        humidity: latest.humidity,
+        rainfall: latest.rainfall,
+        windSpeed: latest.wind_speed,
+        date: latest.date
+    }
+    res.json(weather)
+})
+
 app.listen(PORT, () =>{
     console.log(`Backend running on http://localhost:${PORT}`)
 })
