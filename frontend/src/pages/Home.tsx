@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import heroImg from "../assets/hero.png"
+import { Link } from 'react-router-dom'
 
 
 interface Driver {
@@ -142,9 +143,12 @@ return (
           </div>
         </div>
       ))}
-      <button onClick={() => setShowAll(!showAll)} className='mt-4 w-full border border-white/10 py-2 text-xs font-bold uppercase tracking-widest text-white/50 hover:text-white hover:border-white/30'> 
-        {showAll ? 'Show less' : 'Show all'}
-      </button>
+      <Link
+  to="/standings"
+  className='mt-4 block text-center w-full border border-white/10 py-2 text-xs font-bold uppercase tracking-widest text-white/50 hover:text-white hover:border-white/30'
+>
+  Show all
+    </Link>
     </div>
     
   </section>
