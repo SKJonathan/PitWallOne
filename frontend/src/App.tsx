@@ -60,7 +60,8 @@ function App() {
   const [timeLeft, setTimeLeft] = useState(() => getTimeLeft(new Date()))
   const [nextRace, setNextRace] = useState<Race | null>(null)
   const [weather, setWeather] = useState<Weather | null>(null)
-
+  const top5 = drivers.slice(0,5)
+  const [showAll, setShowAll] = useState(false)
 
   useEffect(() => {
     fetch(`${API_URL}/api/drivers`)
@@ -136,8 +137,9 @@ return (
       Championship Standings
     </h2>
 
-    <div className="space-y-5">
-      {drivers.map((driver, i) => (
+    <div className="space-y-1">
+      
+      {top5.map((driver, i) => (
         <div key={driver.id} className="flex items-center justify-between border-b border-white/5 pb-4 last:border-0">
           <div className="flex items-center gap-4">
             <span className={`font-mono font-bold ${i === 0 ? 'text-f1-red' : 'text-white/40'}`}>
@@ -154,7 +156,11 @@ return (
           </div>
         </div>
       ))}
+      <button onClick={() => setShowAll(!showAll)} className='mt-4 w-full border border-white/10 py-2 text-xs font-bold uppercase tracking-widest text-white/50 hover:text-white hover:border-white/30'> 
+        {showAll ? 'Show less' : 'Show all'}
+      </button>
     </div>
+    
   </section>
 
   {/* Right column: Circut + Race Window on top, new div below */}
