@@ -231,7 +231,7 @@ return (
       Air-Temp
     </h2>
       <h2 className="text-3xl font-extrabold uppercase tracking-tighter text-white">
-        {weather?.airTemp}&deg;C 
+        {weather?.airTemp != null ? `${weather.airTemp}`: '-'}&deg;C 
     </h2>
     </div>
     <div>
@@ -239,7 +239,7 @@ return (
       Track-Temp
     </h2>
       <h2 className="text-3xl font-extrabold uppercase tracking-tighter text-white">
-        {weather?.trackTemp}&deg;C 
+        {weather?.trackTemp != null ? `${weather.trackTemp}`: '-' }&deg;C 
     </h2>
     </div>
     <div>
@@ -247,7 +247,7 @@ return (
       Humidity
     </h2>
       <h2 className="text-3xl font-extrabold uppercase tracking-tighter text-white">
-        {weather?.humidity}%
+        {weather?.humidity != null ? `${weather.humidity}`: '-'  }%
     </h2>
     </div>
     <div>
@@ -255,7 +255,7 @@ return (
       Wind-Speed
     </h2>
       <h2 className="text-3xl font-extrabold lowercase tracking-tighter text-white">
-        {weather?.windSpeed}m/s
+        {weather?.windSpeed != null ? `${weather.windSpeed}`: '-'  }m/s
     </h2>
     </div>
   </div>
