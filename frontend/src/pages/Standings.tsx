@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import heroImg from "../assets/hero.png"
 
 
 interface Driver {
@@ -10,48 +9,17 @@ interface Driver {
   points: number
 }
 
-interface Race {
-  raceName: string
-  circuit: string
-  locality: string
-  country: string
-  date: string
-  time: string
-}
-
-interface Weather{
-  trackTemp: number
-  airTemp: number
-  humidity: number
-  rainfall: number
-  windSpeed: number
-  date: string
-}
 
 const API_URL = import.meta.env.VITE_API_URL || ''
 
 
 
 
-function getTimeLeft(target: Date) {
-  const total = target.getTime() - Date.now()
-  if (total <= 0) {
-    return { total: 0, days: 0, hours: 0, minutes: 0, seconds: 0 }
-  }
-  const days = Math.floor(total / (1000 * 60 * 60 * 24))
-  const hours = Math.floor((total / (1000 * 60 * 60)) % 24)
-  const minutes = Math.floor((total / (1000 * 60)) % 60)
-  const seconds = Math.floor((total / 1000) % 60)
-  return { total, days, hours, minutes, seconds }
-}
 
 function App() {
   const [drivers, setDrivers] = useState<Driver[]>([])
   
-  const [nextRace, setNextRace] = useState<Race | null>(null)
-  
-  const top5 = drivers.slice(0,5)
-  const [showAll, setShowAll] = useState(false)
+
 
   useEffect(() => {
     fetch(`${API_URL}/api/drivers`)
@@ -60,13 +28,6 @@ function App() {
   }, [])
 
 
-
-    useEffect(() => {
-    fetch(`${API_URL}/api/next-race`)
-      .then((res) => res.json())
-      .then((data) => setNextRace(data))
-  }, [])
- 
 
 
 

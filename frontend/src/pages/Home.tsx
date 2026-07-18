@@ -62,7 +62,7 @@ function App() {
   const [nextRace, setNextRace] = useState<Race | null>(null)
   const [weather, setWeather] = useState<Weather | null>(null)
   const top5 = drivers.slice(0,5)
-  const [showAll, setShowAll] = useState(false)
+
 
   useEffect(() => {
     fetch(`${API_URL}/api/drivers`)
