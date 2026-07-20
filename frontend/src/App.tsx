@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, NavLink } from 'react-router-dom'
 import Home from './pages/Home'
 import Standings from './pages/Standings'
 
@@ -15,11 +15,16 @@ return (
     <nav className="flex items-center justify-start px-6 py-4 border-b border-white/10">
       
       <div className="flex gap-6 ">
-        <a href="/" className="text-xs font-bold uppercase tracking-widest text-white">Schedule</a>
+        <NavLink to="/" className={({isActive}) => `text-xs font-bold uppercase tracking-widest ${ isActive ? "text-white" : "text-white/50 hover:text-white" }`} >Schedule </NavLink>
+        <NavLink to="/standings" className={({isActive}) => `text-xs font-bold uppercase tracking-widest ${ isActive ? "text-white" : "text-white/50 hover:text-white" }`} >Standings </NavLink>
+        <NavLink to="/teams" className={({isActive}) => `text-xs font-bold uppercase tracking-widest ${ isActive ? "text-white" : "text-white/50 hover:text-white" }`} >Teams </NavLink>
+        <NavLink to="/drivers" className={({isActive}) => `text-xs font-bold uppercase tracking-widest ${ isActive ? "text-white" : "text-white/50 hover:text-white" }`} >Drivers </NavLink>
+        <NavLink to="/stats" className={({isActive}) => `text-xs font-bold uppercase tracking-widest ${ isActive ? "text-white" : "text-white/50 hover:text-white" }`} >Stats </NavLink>
+        {/* <a href="/" className="text-xs font-bold uppercase tracking-widest text-white">Schedule</a>
         <a href="/standings" className="text-xs font-bold uppercase tracking-widest text-white/50 hover:text-white">Standings</a>
         <a href="#" className="text-xs font-bold uppercase tracking-widest text-white/50 hover:text-white">Teams</a>
         <a href="#" className="text-xs font-bold uppercase tracking-widest text-white/50 hover:text-white">Drivers</a>
-        <a href="#" className="text-xs font-bold uppercase tracking-widest text-white/50 hover:text-white">Stats</a>
+        <a href="#" className="text-xs font-bold uppercase tracking-widest text-white/50 hover:text-white">Stats</a> */}
       </div>
     </nav>
       <Routes>
