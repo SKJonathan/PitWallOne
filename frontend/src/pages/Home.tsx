@@ -21,14 +21,14 @@ interface Race {
   isSprint: boolean
 }
 
-interface Weather{
-  trackTemp: number
-  airTemp: number
-  humidity: number
-  rainfall: number
-  windSpeed: number
-  date: string
-}
+// interface Weather{
+//   trackTemp: number
+//   airTemp: number
+//   humidity: number
+//   rainfall: number
+//   windSpeed: number
+//   date: string
+// }
 
 interface Schedule{
   firstSessionDate: string
@@ -180,7 +180,7 @@ function App() {
   const [drivers, setDrivers] = useState<Driver[]>([])
   const [timeLeft, setTimeLeft] = useState(() => getTimeLeft(new Date()))
   const [nextRace, setNextRace] = useState<Race | null>(null)
-  const [weather, setWeather] = useState<Weather | null>(null)
+  // const [weather, setWeather] = useState<Weather | null>(null)
   const top5 = drivers.slice(0,10)
   const [weekendSchedule, setSchedule] = useState<Schedule| null>(null)
   
@@ -216,16 +216,16 @@ function App() {
 
  
  
-  useEffect(() => {
-    const getWeather = () => {
-      fetch(`${API_URL}/api/weather`)
-        .then((res) => res.json())
-        .then((data) => setWeather(data))
-    }
-    getWeather()
-    const id = setInterval(getWeather, 30000)
-    return () => clearInterval(id)
-  }, [])
+  // useEffect(() => {
+  //   const getWeather = () => {
+  //     fetch(`${API_URL}/api/weather`)
+  //       .then((res) => res.json())
+  //       .then((data) => setWeather(data))
+  //   }
+  //   getWeather()
+  //   const id = setInterval(getWeather, 30000)
+  //   return () => clearInterval(id)
+  // }, [])
 
 
 return (
