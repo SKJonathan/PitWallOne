@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 
-
 interface Driver {
   id: number
   position: number

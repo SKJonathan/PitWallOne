@@ -18,6 +18,7 @@ interface Race {
   country: string
   date: string
   time: string
+  isSprint: boolean
 }
 
 interface Weather{
@@ -28,6 +29,39 @@ interface Weather{
   windSpeed: number
   date: string
 }
+
+interface Schedule{
+  firstSessionDate: string
+  firstSessionTime: string
+  secondSessionDate?: string
+  secondSessionTime?: string
+  thirdSessionDate?: string
+  thirdSessionTime?: string
+  sprintQualiyingDate?: string
+  sprintQualiyingTime?: string
+  sprintDate?: string
+  sprintTime?: string
+  qualifyingDate: string
+  qualifyingTime: string
+}
+
+interface RawSession{
+  label: string
+  date?: string
+  time?: string
+  colour: string
+  span?: number
+}
+
+type Session = {
+  label: string
+  colour: string
+  span: number
+  day: string
+  hour: number
+  time: string
+}
+
 
 const API_URL = import.meta.env.VITE_API_URL || ''
 
@@ -56,12 +90,100 @@ function getTimeLeft(target: Date) {
   return { total, days, hours, minutes, seconds }
 }
 
+const COLOURS = {
+  practice:     'bg-white/10 text-white/60',
+  sprintQuali:  'bg-white/20 text-white/80',
+  sprint:       'bg-white/25 text-white',
+  quali:        'bg-white text-black',          // pure white = stands out
+  race:         'bg-f1-red text-white',
+}
+
+function buildSessions(schedule: Schedule | null, race: Race | null){
+  if(!schedule || !race) return []
+
+  const raw: RawSession[] = race.isSprint === true
+  ? [
+    { label: 'Free Practice 1', date: schedule.firstSessionDate, time: schedule.firstSessionTime, colour: COLOURS.practice, span: 2},
+    { label: 'Sprint Qualifying', date: schedule.sprintQualiyingDate, time: schedule.sprintQualiyingTime, colour: COLOURS.sprintQuali, span: 2},
+    { label: 'Sprint Race', date: schedule.sprintDate, time: schedule.sprintTime, colour: COLOURS.sprint, span: 2},
+    { label: 'Qualifying', date: schedule.qualifyingDate, time: schedule.qualifyingTime, colour: COLOURS.quali, span: 2},
+    { label: 'Race', date: race.date, time: race.time, colour: COLOURS.race, span: 2}, 
+  ] :
+    [
+    { label: 'Free Practice 1', date: schedule.firstSessionDate, time: schedule.firstSessionTime, colour: COLOURS.practice, span: 2},
+    { label: 'Free Practice 2', date: schedule.secondSessionDate, time: schedule.secondSessionTime, colour: COLOURS.practice, span: 2},
+    { label: 'Free Practice 3', date: schedule.thirdSessionDate, time: schedule.thirdSessionTime, colour: COLOURS.practice, span: 2},
+    { label: 'Qualifying', date: schedule.qualifyingDate, time: schedule.qualifyingTime, colour: COLOURS.quali, span: 2},
+    { label: 'Race', date: race.date, time: race.time, colour: COLOURS.race, span: 2}, 
+  
+    ]
+
+    return raw
+      .filter((s)=> s.date && s.time)
+      .map((s) => {
+        const d = new Date(`${s.date}T${s.time}`)
+        return {
+          label: s.label,
+          colour: s.colour,
+          span: s.span || 1,
+          day: d.toLocaleDateString('en-GB', {weekday: 'short'}), //This should make it Fri, Sat, Sun
+          hour: d.getHours(),
+          time: d.toLocaleTimeString('en-GB', {hour: '2-digit', minute: '2-digit'}),
+        }
+      })
+}
+
+function ScheduleGrid({ sessions }: {sessions: Session[] }){
+  const Hours = [8,9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, ]
+  const Days = ['Fri', 'Sat', 'Sun']
+  const skip: Record<string, boolean> = {} 
+
+  return(
+    <table className="w-full table-fixed border-collapse text-sm">
+      <thead>
+        <tr>
+          <th className="w-16 bg/5 p-2 text-white/40 text-xs uppercase">Time</th>
+          {Days.map((d) => (
+            <th key={d} className="bg/5 p-2 uppercase font-bold">{d}</th>
+          ))}
+        </tr>
+      </thead>
+      <tbody>
+        {Hours.map((h) => (
+          <tr key={h}>
+            <td className="bg/[0.02] text-white/40 font-mono text-xs p-2 text-center">
+              {String(h).padStart(2, '0')}:00
+            </td>
+            {Days.map((day) => {
+              const key = day + h
+              if (skip[key]) return null
+              const s = sessions.find((x) => x.day === day && x.hour === h)
+              if (!s) return <td key={key} className="border-l border-white/10" />
+              for (let i = 1; i < s.span; i++) skip[day + (h + i)] = true
+              return (
+                <td key={key} rowSpan={s.span} className="border-l border-white/10 p-1 align-top">
+                  <div className={`rounded p-2 font-bold ${s.colour}`}>
+                    {s.label}
+                    <span className="block font-normal text-xs opacity-90">{s.time}</span>
+                  </div>
+                </td>
+              )
+            })}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  )
+}
+
 function App() {
   const [drivers, setDrivers] = useState<Driver[]>([])
   const [timeLeft, setTimeLeft] = useState(() => getTimeLeft(new Date()))
   const [nextRace, setNextRace] = useState<Race | null>(null)
   const [weather, setWeather] = useState<Weather | null>(null)
-  const top5 = drivers.slice(0,5)
+  const top5 = drivers.slice(0,10)
+  const [weekendSchedule, setSchedule] = useState<Schedule| null>(null)
+  
 
 
   useEffect(() => {
@@ -82,6 +204,17 @@ function App() {
       .then((res) => res.json())
       .then((data) => setNextRace(data))
   }, [])
+  
+    useEffect(() => {
+      if (!nextRace) return
+      const url = nextRace.isSprint 
+      ? "/api/sprint-weekend-schedule"
+      : "/api/normal-weekend-schedule"
+    fetch(`${API_URL}${url}`).then(r => r.json()).then(setSchedule)
+  }, [nextRace])
+
+
+ 
  
   useEffect(() => {
     const getWeather = () => {
@@ -223,9 +356,13 @@ return (
 
   </div>
 
-  {/* Weather stats*/}
+  {/* Gird Serction*/}
   <section className="bg-carbon p-8 border-t border-white/10 border-b border-white/10 lg:border-l rounded">
-  <div className='flex flex-row gap-40'>
+  <ScheduleGrid sessions={buildSessions(weekendSchedule, nextRace)} />
+</section>
+
+  {/* <section className="bg-carbon p-8 border-t border-white/10 border-b border-white/10 lg:border-l rounded">
+      <div className='flex flex-row gap-40'>
     <div>
       <h2 className="mt-3 text-white/40 font-mono text-xs uppercase tracking-wider">
       Air-Temp
@@ -259,12 +396,10 @@ return (
     </h2>
     </div>
   </div>
-    {/* <h2 className="text-xs font-extrabold uppercase tracking-[0.2em] text-white/40 border-l-2 border-f1-red pl-4">
-      New Section
-    </h2> */}
-  </section>
+  </section>     */}
 
   </div>
+  
 </div>
 
   </div>

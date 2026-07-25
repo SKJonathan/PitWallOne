@@ -34,22 +34,48 @@ app.get('/api/next-race', async(req, res) =>{
         country: race.Circuit.Location.country,
         date: race.date,
         time: race.time,
+        isSprint: "Sprint" in race, // This is to check if the weekend is a sprint weekend.
         
     }
     res.json(nextRace)
 })
 
-app.get('/api/next-qualifying', async(req, res) =>{
+app.get('/api/normal-weekend-schedule', async(req, res) =>{
     const response = await fetch('https://api.jolpi.ca/ergast/f1/current/next.json')
     const data = await response.json()
     const race = data.MRData.RaceTable.Races[0]
-    const nextRace = {
+    const normalWeekend = {
+        firstSessionDate: race.FirstPractice.date,
+        firstSessionTime: race.FirstPractice.time,
+        secondSessionDate: race.SecondPractice.date,
+        secondSessionTime: race.SecondPractice.time,
+        thirdSessionDate: race.ThirdPractice.date,
+        thirdSessionTime: race.ThirdPractice.time,
         qualifyingDate: race.Qualifying.date,
         qualifyingTime: race.Qualifying.time, 
         
         
     }
+    res.json(normalWeekend)
+})
 
+app.get('/api/sprint-weekend-schedule', async(req, res) =>{
+    const response = await fetch('https://api.jolpi.ca/ergast/f1/current/next.json')
+    const data = await response.json()
+    const race = data.MRData.RaceTable.Races[0]
+    const sprintWeekend = {
+        firstSessionDate: race.FirstPractice.date,
+        firstSessionTime: race.FirstPractice.time,
+        sprintQualiyingDate: race.SprintQualifying.date,
+        sprintQualiyingTime: race.SprintQualifying.time,
+        sprintDate: race.Sprint.date,
+        sprintTime: race.Sprint.time,
+        qualifyingDate: race.Qualifying.date,
+        qualifyingTime: race.Qualifying.time, 
+        
+        
+    }
+    res.json(sprintWeekend)
 })
 
 
