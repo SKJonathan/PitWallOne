@@ -283,14 +283,18 @@ return (
         <div key={driver.id} className="flex items-center justify-between border-b border-white/5 pb-4 last:border-0">
           <div className="flex items-center gap-4">
             <span className={`font-mono font-bold ${i === 0 ? 'text-f1-red' : 'text-white/40'}`}>
-              {driver.position}
+            
+              {driver.position} {' '}
+            </span>
+            <span  className="w-0.75 h-8 rounded-sm shrink-0" style= {{ backgroundColor: getTeamColour(driver.teamid)}}>
+              
             </span>
             
             <div>
               <p className="font-extrabold uppercase text-sm">{driver.name}</p>
               <p className="text-[10px] text-white/40 uppercase tracking-wider">
               {driver.team} · {' '}
-              <span style={{ color: getTeamColour(driver.teamid)}}>
+              <span style={{ fontSize: 14,color: getTeamColour(driver.teamid)}}>
               #{driver.driverNumber}  
               </span>
               </p>
