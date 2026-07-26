@@ -18,6 +18,8 @@ app.get('/api/drivers', async(req, res) => {
         name: d.Driver.givenName + ' ' + d.Driver.familyName,
         team: d.Constructors[0].name,
         points: Number(d.points),
+        driverNumber: d.Driver.permanentNumber,
+        teamid: d.Constructors[0].constructorId
 
     }))
     res.json(drivers)
