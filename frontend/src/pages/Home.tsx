@@ -263,7 +263,7 @@ return (
       {/* <br /> Grand Prix */}
     </h1>
     <p className="mt-4 text-white/60 font-mono text-sm">
-      52 laps under the floodlights.
+      72  laps under the floodlights.
     </p>
   </div>
 </header>
@@ -282,7 +282,7 @@ return (
       {top5.map((driver, i) => (
         <div key={driver.id} className="flex items-center justify-between border-b border-white/5 pb-4 last:border-0">
           <div className="flex items-center gap-4">
-            <span className={`font-mono font-bold ${i === 0 ? 'text-f1-red' : 'text-white/40'}`}>
+            <span className={`font-mono font-bold w-6 text-right ${i === 0 ? 'text-f1-red' : 'text-white/40'}`}>
             
               {driver.position} {' '}
             </span>
@@ -337,11 +337,11 @@ return (
     <div className="mt-8 space-y-4">
       <div className="flex items-center justify-between border-b border-white/5 pb-3">
         <span className="text-[10px] uppercase tracking-wider text-white/40">Laps</span>
-        <span className="font-mono font-bold text-sm">52</span>
+        <span className="font-mono font-bold text-sm">72 </span>
       </div>
       <div className="flex items-center justify-between border-b border-white/5 pb-3">
         <span className="text-[10px] uppercase tracking-wider text-white/40">Length</span>
-        <span className="font-mono font-bold text-sm">5.891 km</span>
+        <span className="font-mono font-bold text-sm">4.259 km</span>
       </div>
       <div className="flex items-center justify-between">
         <span className="text-[10px] uppercase tracking-wider text-white/40">Date</span>
