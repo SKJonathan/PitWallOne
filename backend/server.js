@@ -25,6 +25,22 @@ app.get('/api/drivers', async(req, res) => {
     res.json(drivers)
 })
 
+app.get('/api/constructors', async(req, res) => {
+    const response = await fetch('https://api.jolpi.ca/ergast/f1/2026/constructorstandings.json')
+    const data = await response.json()
+    const list = data.MRData.StandingsTable.StandingsLists[0].ConstructorStandings
+    const constructors = list.map((c, i) => ({
+        id: i+1,
+        position: Number(c.position),
+        name: c.Constructor.name,
+        points: Number(c.points),
+        wins: c.wins,
+        teamid: c.Constructor.constructorId
+
+    }))
+    res.json(constructors)
+})
+
 app.get('/api/next-race', async(req, res) =>{
     const response = await fetch('https://api.jolpi.ca/ergast/f1/current/next.json')
     const data = await response.json()
