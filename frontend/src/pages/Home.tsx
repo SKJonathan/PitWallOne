@@ -10,7 +10,7 @@ interface Driver {
   team: string
   points: number
   driverNumber: string
- 
+  teamid: string
 }
 
 interface Race {
