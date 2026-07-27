@@ -1,45 +1,8 @@
 import { useState, useEffect } from 'react'
-
-interface Driver {
-  id: number
-  position: number
-  name: string
-  team: string
-  points: number
-  driverNumber: string
-  teamid: string
-}
-
-interface Constructor{
-  id: number,
-  position: number,
-  name: string, 
-  points: number,
-  wins: string,
-  teamid: string,
-}
-
+import { getTeamColour} from '../teamColours'
+import type {Driver, Constructor} from '../types'
 
 const API_URL = import.meta.env.VITE_API_URL || ''
-
-const ConstructorColour: Record<string, string> = {
-  mercedes: '#27F4D2 ',
-  mclaren: '#FF8000',
-  red_bull: '#3671C6',
-  ferrari: '#E8002D ',
-  rb: '#6692FF',
-  williams: '#64C4FF',
-  aston_martin: '#229971',
-  alpine: '#0093CC',
-  cadillac: '#000000',
-  audi: '#BB0A30',
-  haas: '#B6BABD',
-}
-
-export function getTeamColour(team: string){
-  return ConstructorColour[team] || '#888888'
-}
-
 
 
 function App() {
@@ -65,11 +28,7 @@ function App() {
 
 return (
   <div className="min-h-screen bg-carbon text-white">
-
-    
-
-
-<div className="grid lg:grid-cols-2 border-b">
+    <div className="grid lg:grid-cols-2 border-b">
 
   {/* Drivers Standings */}
   <section className="space-y-10 lg:col-span-1 bg-carbon p-8 ">
@@ -108,7 +67,6 @@ return (
       ))}
       
     </div>
-    
   </section>
   
   {/* Constructor Standings */}

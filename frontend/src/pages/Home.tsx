@@ -1,51 +1,8 @@
 import { useState, useEffect } from 'react'
 import heroImg from "../assets/hero.png"
 import { Link } from 'react-router-dom'
-
-
-interface Driver {
-  id: number
-  position: number
-  name: string
-  team: string
-  points: number
-  driverNumber: string
-  teamid: string
-}
-
-interface Race {
-  raceName: string
-  circuit: string
-  locality: string
-  country: string
-  date: string
-  time: string
-  isSprint: boolean
-}
-
-// interface Weather{
-//   trackTemp: number
-//   airTemp: number
-//   humidity: number
-//   rainfall: number
-//   windSpeed: number
-//   date: string
-// }
-
-interface Schedule{
-  firstSessionDate: string
-  firstSessionTime: string
-  secondSessionDate?: string
-  secondSessionTime?: string
-  thirdSessionDate?: string
-  thirdSessionTime?: string
-  sprintQualiyingDate?: string
-  sprintQualiyingTime?: string
-  sprintDate?: string
-  sprintTime?: string
-  qualifyingDate: string
-  qualifyingTime: string
-}
+import type { Driver, Race, Schedule} from '../types'
+import {getTeamColour} from '../teamColours'
 
 interface RawSession{
   label: string
@@ -92,49 +49,33 @@ function getTimeLeft(target: Date) {
   return { total, days, hours, minutes, seconds }
 }
 
-const COLOURS = {
+const ScheduleColours = {
   practice:     'bg-white/10 text-white/60',
   sprintQuali:  'bg-white/20 text-white/80',
   sprint:       'bg-white/25 text-white',
-  quali:        'bg-white text-black',          // pure white = stands out
+  quali:        'bg-white text-black',          
   race:         'bg-f1-red text-white',
 }
 
-const ConstructorColour: Record<string, string> = {
-  mercedes: '#27F4D2 ',
-  mclaren: '#FF8000',
-  red_bull: '#3671C6',
-  ferrari: '#E8002D ',
-  rb: '#6692FF',
-  williams: '#64C4FF',
-  aston_martin: '#229971',
-  alpine: '#0093CC',
-  cadillac: '#000000',
-  audi: '#BB0A30',
-  haas: '#B6BABD',
-}
 
-export function getTeamColour(team: string){
-  return ConstructorColour[team] || '#888888'
-}
 
 function buildSessions(schedule: Schedule | null, race: Race | null){
   if(!schedule || !race) return []
 
   const raw: RawSession[] = race.isSprint === true
   ? [
-    { label: 'Free Practice 1', date: schedule.firstSessionDate, time: schedule.firstSessionTime, colour: COLOURS.practice, span: 2},
-    { label: 'Sprint Qualifying', date: schedule.sprintQualiyingDate, time: schedule.sprintQualiyingTime, colour: COLOURS.sprintQuali, span: 2},
-    { label: 'Sprint Race', date: schedule.sprintDate, time: schedule.sprintTime, colour: COLOURS.sprint, span: 2},
-    { label: 'Qualifying', date: schedule.qualifyingDate, time: schedule.qualifyingTime, colour: COLOURS.quali, span: 2},
-    { label: 'Race', date: race.date, time: race.time, colour: COLOURS.race, span: 2}, 
+    { label: 'Free Practice 1', date: schedule.firstSessionDate, time: schedule.firstSessionTime, colour: ScheduleColours.practice, span: 2},
+    { label: 'Sprint Qualifying', date: schedule.sprintQualiyingDate, time: schedule.sprintQualiyingTime, colour: ScheduleColours.sprintQuali, span: 2},
+    { label: 'Sprint Race', date: schedule.sprintDate, time: schedule.sprintTime, colour: ScheduleColours.sprint, span: 2},
+    { label: 'Qualifying', date: schedule.qualifyingDate, time: schedule.qualifyingTime, colour: ScheduleColours.quali, span: 2},
+    { label: 'Race', date: race.date, time: race.time, colour: ScheduleColours.race, span: 2}, 
   ] :
     [
-    { label: 'Free Practice 1', date: schedule.firstSessionDate, time: schedule.firstSessionTime, colour: COLOURS.practice, span: 2},
-    { label: 'Free Practice 2', date: schedule.secondSessionDate, time: schedule.secondSessionTime, colour: COLOURS.practice, span: 2},
-    { label: 'Free Practice 3', date: schedule.thirdSessionDate, time: schedule.thirdSessionTime, colour: COLOURS.practice, span: 2},
-    { label: 'Qualifying', date: schedule.qualifyingDate, time: schedule.qualifyingTime, colour: COLOURS.quali, span: 2},
-    { label: 'Race', date: race.date, time: race.time, colour: COLOURS.race, span: 2}, 
+    { label: 'Free Practice 1', date: schedule.firstSessionDate, time: schedule.firstSessionTime, colour: ScheduleColours.practice, span: 2},
+    { label: 'Free Practice 2', date: schedule.secondSessionDate, time: schedule.secondSessionTime, colour: ScheduleColours.practice, span: 2},
+    { label: 'Free Practice 3', date: schedule.thirdSessionDate, time: schedule.thirdSessionTime, colour: ScheduleColours.practice, span: 2},
+    { label: 'Qualifying', date: schedule.qualifyingDate, time: schedule.qualifyingTime, colour: ScheduleColours.quali, span: 2},
+    { label: 'Race', date: race.date, time: race.time, colour: ScheduleColours.race, span: 2}, 
   
     ]
 
