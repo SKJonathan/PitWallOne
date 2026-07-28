@@ -6,6 +6,34 @@ import cors from 'cors'
 const app = express()
 app.use(cors())
 const PORT = process.env.PORT || 3001
+const POINTS = [25, 18, 15, 12, 10, 8, 6, 4, 2, 1]
+
+// Get all results for the current year
+async function GetAllResults(){
+    const all = []
+    let offset = 0
+    let total = 1
+    while (offset < total){
+        const response = await fetch(`https://api.jolpi.ca/ergast/f1/current/results.json?limit=100&offset=${offset}`)
+        const data = await response.json()
+        total = Number(data.MRData.total)
+        data.MRData.RaceTable.Races.forEach(race => {
+            race.Results.forEach(r => {
+                all.push({
+                    round: Number(race.round),
+                    position: Number(r.position),
+                    driver: r.Driver.givenName + ' ' + r.Driver.familyName,
+                    driverId: r.Driver.driverId,
+                    team: r.Constructor.name,
+                    teamid: r.Constructor.constructorId
+                })
+            })
+        })
+        offset += 100
+    }
+    return all
+}
+
 
 // Routing 
 app.get('/api/drivers', async(req, res) => {
@@ -96,7 +124,32 @@ app.get('/api/sprint-weekend-schedule', async(req, res) =>{
     res.json(sprintWeekend)
 })
 
-
+app.get('/api/f1p5', async(req, res) =>{
+    const all = await GetAllResults()
+    const byRound = {}
+    all.forEach(r => {
+        if(!byRound[r.round]) byRound[r.round] = []
+        byRound[r.round].push(r)
+    })
+    const totals = {}
+    const top4 = ['mercedes', 'mclaren', 'ferrari', 'red_bull']
+    Object.values(byRound).forEach(rows => {
+        const midfield = rows
+            .filter(r => !top4.includes(r.teamid))
+            .sort((a, b) => a.position - b.position)
+        midfield.forEach((r, i) => {
+            const pts = POINTS[i] || 0
+            if(!totals[r.driverId]){
+                totals[r.driverId] = { name: r.driver, team: r.team, teamid: r.teamid, points: 0 }
+            }
+            totals[r.driverId].points += pts
+        })
+    })
+    const standings = Object.values(totals)
+        .sort((a, b) => b.points - a.points)
+        .map((d, i) => ({ id: i + 1, position: i + 1, ...d }))
+    res.json(standings)
+})
 app.get('/api/weather', async(req, res) =>{
     
     const response = await fetch('https://api.openf1.org/v1/weather?session_key=latest')

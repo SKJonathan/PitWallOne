@@ -3,6 +3,7 @@ import Home from './pages/Home'
 import Standings from './pages/Standings'
 import DriverStandings from './pages/DriverStandings'
 import ConstructorStandings from './pages/ConstructorStandings'
+import F1p5 from './pages/F1p5'
 
 function App() {
 
@@ -33,6 +34,9 @@ return (
 
             <NavLink to="/constructorstandings" className="block px-4 py-3 text-xs font-bold uppercase tracking-widest text-white/50 hover:text-white hover:bg-white/5">
             Constructors </NavLink>
+
+            <NavLink to="/f1p5" className="block px-4 py-3 text-xs font-bold uppercase tracking-widest text-white/50 hover:text-white hover:bg-white/5">
+            F1.5 </NavLink>
             </div>
           </div>
         </div>
@@ -46,11 +50,7 @@ return (
         <NavLink to="/stats" className={({isActive}) => `text-xs font-bold uppercase tracking-widest 
         ${ isActive ? "text-white" : "text-white/50 hover:text-white" }`} >Stats </NavLink>
 
-        {/* <a href="/" className="text-xs font-bold uppercase tracking-widest text-white">Schedule</a>
-        <a href="/standings" className="text-xs font-bold uppercase tracking-widest text-white/50 hover:text-white">Standings</a>
-        <a href="#" className="text-xs font-bold uppercase tracking-widest text-white/50 hover:text-white">Teams</a>
-        <a href="#" className="text-xs font-bold uppercase tracking-widest text-white/50 hover:text-white">Drivers</a>
-        <a href="#" className="text-xs font-bold uppercase tracking-widest text-white/50 hover:text-white">Stats</a> */}
+        
       </div>
 
     </nav>
@@ -59,6 +59,7 @@ return (
         <Route path="/standings" element={<Standings />} />
         <Route path="/driverstandings" element={<DriverStandings />} />
         <Route path="/constructorstandings" element={<ConstructorStandings />} />
+        <Route path="/F1p5" element={<F1p5 />} />
       </Routes>
   </div>
 )
