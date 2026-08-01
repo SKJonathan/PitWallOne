@@ -6,6 +6,9 @@ export interface Driver {
   points: number
   driverNumber: string
   teamid: string
+  wins: number
+  code: string
+  //pudiums: number
 }
 
 export interface Constructor{

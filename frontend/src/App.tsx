@@ -4,6 +4,7 @@ import Standings from './pages/Standings'
 import DriverStandings from './pages/DriverStandings'
 import ConstructorStandings from './pages/ConstructorStandings'
 import F1p5 from './pages/F1p5'
+import Standingsv2 from './pages/Standingsv2'
 
 function App() {
 
@@ -60,6 +61,7 @@ return (
         <Route path="/driverstandings" element={<DriverStandings />} />
         <Route path="/constructorstandings" element={<ConstructorStandings />} />
         <Route path="/F1p5" element={<F1p5 />} />
+        <Route path="/v2" element={<Standingsv2 />} />
       </Routes>
   </div>
 )
