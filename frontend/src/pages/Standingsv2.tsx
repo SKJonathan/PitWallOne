@@ -71,25 +71,28 @@ return (
         <span className='w-0.5 h-4 bg-f1-red'/>
         Full classification
         </h2>
-        <div className='mt-6 grid grid-row[60px_1fr_1fr_100px] gap-4 items-center border-b border-white/10 
+        <div className='mt-6 grid grid-cols-[60px_1fr_1fr_80px_100px] gap-4 items-center border-b border-white/10 
         pb-3 text-xs uppercase tracking-widest text-white/40'>
             <span>Pos</span>
             <span>Driver</span>
             <span>Team</span>
+            <span className='text-right'>Wins</span>
             <span className='text-right'> Points</span>
         </div>
         {drivers.map((driver, i) => (
-            <div key={driver.id} className='grid grid-cols-[60px-1fr-1fr_100px] gap-4 items-center border-b
+            <div key={driver.id} className='grid grid-cols-[60px_1fr_1fr_80px_100px] gap-4 items-center border-b
              border-white/5 py-4 hover:bg-white/5 transition-color'>
             <span className={`font-mono font-bold ${i === 0 ? 'text-f1-red' : 'text-white/40'}`}>
                 {String(driver.position).padStart(2, '0')}
             </span>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-4">
                 <span className="w-0.5 h-5 rounded-sm shrink-0" style={{ backgroundColor: getTeamColour(driver.teamid) }} />
                 <span className="font-extrabold uppercase text-sm">{driver.name}</span>
             </div>
             <span className="text-[10px] uppercase tracking-widest text-white/40">{driver.team}</span>
+            <span className='font-mono font-bold text-right'>{driver.wins}</span>
             <span className="font-mono font-bold text-right">{driver.points}</span>
+            
             </div>
         )) }
         
