@@ -25,7 +25,8 @@ async function GetAllResults(){
                     driver: r.Driver.givenName + ' ' + r.Driver.familyName,
                     driverId: r.Driver.driverId,
                     team: r.Constructor.name,
-                    teamid: r.Constructor.constructorId
+                    teamid: r.Constructor.constructorId,
+                    driverNumber: r.Driver.permanentNumber,
                 })
             })
         })
@@ -142,7 +143,7 @@ app.get('/api/f1p5', async(req, res) =>{
         midfield.forEach((r, i) => {
             const pts = POINTS[i] || 0
             if(!totals[r.driverId]){
-                totals[r.driverId] = { name: r.driver, team: r.team, teamid: r.teamid, points: 0 }
+                totals[r.driverId] = { name: r.driver, team: r.team, teamid: r.teamid, points: 0, driverNumber: r.driverNumber }
             }
             totals[r.driverId].points += pts
         })
