@@ -30,7 +30,7 @@ return (
         
         <div className='absolute left-0 top-full pt-4 hidden group-hover:block z-50'>
           <div className='bg-carbon border border-white/10 min-w-40'>
-            <NavLink to="/driverstandings" className="block px-4 py-3 text-xs font-bold uppercase tracking-widest text-white/50 hover:text-white hover:bg-white/5"> 
+            <NavLink to="/driverstandingsv2" className="block px-4 py-3 text-xs font-bold uppercase tracking-widest text-white/50 hover:text-white hover:bg-white/5"> 
             Drivers </NavLink>
 
             <NavLink to="/constructorstandings" className="block px-4 py-3 text-xs font-bold uppercase tracking-widest text-white/50 hover:text-white hover:bg-white/5">
@@ -61,7 +61,7 @@ return (
         <Route path="/driverstandings" element={<DriverStandings />} />
         <Route path="/constructorstandings" element={<ConstructorStandings />} />
         <Route path="/F1p5" element={<F1p5 />} />
-        <Route path="/v2" element={<Standingsv2 />} />
+        <Route path="/driverstandingsv2" element={<Standingsv2 />} />
       </Routes>
   </div>
 )
