@@ -32,13 +32,13 @@ return (
           
           <div className='absolute left-0 top-full pt-4 hidden group-hover:block z-50'>
             <div className=''>
-              <NavLink to="/driverstandingsv2" className="block px-4 py-3 text-xs font-bold uppercase tracking-widest text-white/50 hover:text-white hover:bg-white/5"> 
+              <NavLink to="/driverstandingsv2" className="block px-4 py-3 text-xs font-bold uppercase tracking-widest text-white/70 hover:text-white hover:bg-white/5"> 
               Drivers </NavLink>
 
-              <NavLink to="/constructorstandings" className="block px-4 py-3 text-xs font-bold uppercase tracking-widest text-white/50 hover:text-white hover:bg-white/5">
+              <NavLink to="/constructorstandings" className="block px-4 py-3 text-xs font-bold uppercase tracking-widest text-white/70 hover:text-white hover:bg-white/5">
               Constructors </NavLink>
 
-              <NavLink to="/F1p5v2" className="block px-4 py-3 text-xs font-bold uppercase tracking-widest text-white/50 hover:text-white hover:bg-white/5">
+              <NavLink to="/F1p5v2" className="block px-4 py-3 text-xs font-bold uppercase tracking-widest text-white/70 hover:text-white hover:bg-white/5">
               F1.5 </NavLink>
               </div>
             </div>
