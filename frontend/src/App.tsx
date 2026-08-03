@@ -22,13 +22,13 @@ return (
         
         <div className="flex gap-15 ">
           <NavLink to="/" className={({isActive}) => `text-xs font-bold uppercase tracking-widest 
-          ${ isActive ? "text-white" : "text-white/50 hover:text-white" }`} >Schedule </NavLink> 
+          ${ isActive ? "text-white" : "text-white/70 hover:text-white" }`} >Schedule </NavLink> 
 
           <div className="flex gap-6 relative group  ">
         
 
           <NavLink to="/standings" className={({isActive}) => `text-xs font-bold uppercase tracking-widest 
-          ${ isActive ? "text-white" : "text-white/50 hover:text-white" }`} > Standings </NavLink>
+          ${ isActive ? "text-white" : "text-white/70 hover:text-white" }`} > Standings </NavLink>
           
           <div className='absolute left-0 top-full pt-4 hidden group-hover:block z-50'>
             <div className=''>
@@ -45,13 +45,13 @@ return (
           </div>
 
           <NavLink to="/teams" className={({isActive}) => `text-xs font-bold uppercase tracking-widest 
-          ${ isActive ? "text-white" : "text-white/50 hover:text-white" }`} >Teams </NavLink>
+          ${ isActive ? "text-white" : "text-white/70 hover:text-white" }`} >Teams </NavLink>
 
           <NavLink to="/drivers" className={({isActive}) => `text-xs font-bold uppercase tracking-widest 
-          ${ isActive ? "text-white" : "text-white/50 hover:text-white" }`} >Drivers </NavLink>
+          ${ isActive ? "text-white" : "text-white/70 hover:text-white" }`} >Drivers </NavLink>
 
           <NavLink to="/stats" className={({isActive}) => `text-xs font-bold uppercase tracking-widest 
-          ${ isActive ? "text-white" : "text-white/50 hover:text-white" }`} >Stats </NavLink>
+          ${ isActive ? "text-white" : "text-white/70 hover:text-white" }`} >Stats </NavLink>
 
           
         </div>

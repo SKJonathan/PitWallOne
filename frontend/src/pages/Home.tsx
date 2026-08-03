@@ -194,9 +194,19 @@ return (
     {/* Block 1: Nav */}
     
     
-    <header className="relative h-[70vh] min-h-[500px] flex flex-col justify-end p-12 overflow-hidden">
-  <img src={heroImg} alt="Ferrari F1 car" className="absolute inset-0 size-full object-cover" />
-  <div className="absolute inset-0 bg-gradient-to-t from-carbon via-carbon/40 to-transparent" />
+    <header className="relative h-[79vh] min-h-[500px] flex flex-col justify-end p-12 overflow-hidden">
+  <img src={heroImg} alt="Mclaren F1 car" className="absolute  inset-0 size-full object-cover" />
+  {/* <div className="absolute inset-0 bg-gradient-to-t from-carbon via-carbon/40 to-transparent" /> */}
+{/* bottom scrim */}
+<div
+  className="absolute inset-x-0 bottom-0 h-2/3"
+  style={{ backgroundImage: 'linear-gradient(to top, rgba(12,13,18,1) 0%, rgba(12,13,18,0.5) 50%, rgba(12,13,18,0) 100%)' }}
+/>
+{/* top scrim */}
+<div
+  className="absolute inset-x-0 top-0 h-1/3"
+  style={{ backgroundImage: 'linear-gradient(to bottom, rgba(12,13,18,0.9) 0%, rgba(12,13,18,0) 100%)' }}
+/>
 
   <div className="relative z-10 max-w-2xl">
     <h1 className="text-6xl md:text-8xl font-extrabold uppercase italic tracking-tighter leading-none">

@@ -25,8 +25,21 @@ const top3Podium = top3.length === 3 ? [top3[1], top3[0], top3[2]] : []
 return (
   <div className='min-h-screen bg-carbon text-white' > {/* Page */}
     <section className="lg:col-span-1"> {/* Hero: badege title description */}
-        <div className="px-10 py-16 bg-cover bg-center border-b border-white/10"
-    style={{ backgroundImage: `linear-gradient(rgba(10,10,12,0.55), rgba(10,10,12,0.95)), url(${driverstandings})` }}>
+        <div className="relative px-10 py-16 pt-30 bg-cover bg-center"
+    style={{ backgroundImage: `url(${driverstandings})` }}>
+        {/* <div className="absolute inset-0" style={{ backgroundImage: 
+        'linear-gradient(to bottom, rgba(12,13,18,0.85) 0px, rgba(12,13,18,0.35) 200px, rgb(12, 13, 18) 500px)' }}/> */}
+    
+            <div
+            className="absolute inset-x-0 bottom-0 h-2/3"
+            style={{ backgroundImage: 'linear-gradient(to top, rgba(12,13,18,1) 10%, rgba(12,13,18,0.5) 50%, rgba(12,13,18,0.5) 100%)' }}
+            />
+           
+            <div
+            className="absolute inset-x-0 top-0 h-1/3"
+            style={{ backgroundImage: 'linear-gradient(to bottom, rgba(12, 13, 18, 0.9) 10%, rgba(12,13,18,0.3) 100%)' }}
+            />
+        <div className='relative'>
             <span className='inline-block bg-f1-red px-2 py-1 text-s font-bold uppercase tracking-widest'>
                 Championship 2026 - Round 12
             </span>
@@ -36,10 +49,11 @@ return (
             <p className='mt-4 max-w-md text-s text-white/40 leading-relaxed'>
                 Every driver, every point, from  the current season.
             </p>
+            </div>
         </div>
     </section>
 
-    <section className='grid md:grid-cols-3 gap-px bg-white/10 border-b border-white/10'>  {/* top 3 cards, side by side */}
+    <section className='grid md:grid-cols-3 gap-px bg-white/5 border-b border-white/5'>  {/* top 3 cards, side by side */}
         {top3Podium.map((driver) => (
             <div key={driver.id} className='relative overflow-hidden bg-carbon p-8'>
                 <span className='absolute right-17 top-1/3 -translate-y-1/2 text-[140px] font-extrabold italic leading-none
