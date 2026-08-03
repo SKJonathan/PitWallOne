@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { getTeamColour} from '../teamColours'
 import type {Driver} from '../types'
+import f1p5 from '../assets/f1p5.jpg'
 
 const API_URL = import.meta.env.VITE_API_URL || ''
 
@@ -25,7 +26,8 @@ const top3Podium = top3.length === 3 ? [top3[1], top3[0], top3[2]] : []
  
 return (
   <div className='min-h-screen bg-carbon text-white' > {/* Page */}
-    <section className="px-8 py-12 border-b border-white/10"> {/* Hero: badege title description */}
+    <section className="lg:col-span-1" > {/* Hero: badege title description */}
+    <div className="px-8 py-12 bg-cover bg-center border-b border-white/10" style={{ backgroundImage: `linear-gradient(rgba(10,10,12,0.55), rgba(10,10,12,0.95)), url(${f1p5})` }} >
         <span className='inline-block bg-f1-red px-2 py-1 text-s font-bold uppercase tracking-widest'>
             Championship 2026 - Round 12
         </span>
@@ -35,6 +37,7 @@ return (
         <p className='mt-4 max-w-md text-s text-white/40 leading-relaxed'>
             Every driver, every point, from  the current season.
         </p>
+    </div>
     </section>
 
     <section className='grid md:grid-cols-3 gap-px bg-white/10 border-b border-white/10'>  {/* top 3 cards, side by side */}
