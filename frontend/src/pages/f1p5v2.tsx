@@ -27,7 +27,7 @@ const top3Podium = top3.length === 3 ? [top3[1], top3[0], top3[2]] : []
 return (
   <div className='min-h-screen bg-carbon text-white' > {/* Page */}
     <section className="lg:col-span-1" > {/* Hero: badege title description */}
-    <div className="px-8 py-12 bg-cover bg-center border-b border-white/10" style={{ backgroundImage: `linear-gradient(rgba(10,10,12,0.55), rgba(10,10,12,0.95)), url(${f1p5})` }} >
+    <div className="px-10 py-16 bg-cover bg-center border-b border-white/10" style={{ backgroundImage: `linear-gradient(rgba(10,10,12,0.55), rgba(10,10,12,0.95)), url(${f1p5})` }} >
         <span className='inline-block bg-f1-red px-2 py-1 text-s font-bold uppercase tracking-widest'>
             Midfield Championship 2026 - Round 12
         </span>
