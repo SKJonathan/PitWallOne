@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { getTeamColour} from '../teamColours'
 import type {Driver} from '../types'
-import f1p5 from '../assets/f1p5.jpg'
+
 
 const API_URL = import.meta.env.VITE_API_URL || ''
 
