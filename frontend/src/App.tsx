@@ -5,6 +5,7 @@ import DriverStandings from './pages/DriverStandings'
 import ConstructorStandings from './pages/ConstructorStandings'
 import F1p5 from './pages/F1p5'
 import Standingsv2 from './pages/Standingsv2'
+import F1p5v2 from './pages/f1p5v2'
 
 function App() {
 
@@ -36,7 +37,7 @@ return (
             <NavLink to="/constructorstandings" className="block px-4 py-3 text-xs font-bold uppercase tracking-widest text-white/50 hover:text-white hover:bg-white/5">
             Constructors </NavLink>
 
-            <NavLink to="/f1p5" className="block px-4 py-3 text-xs font-bold uppercase tracking-widest text-white/50 hover:text-white hover:bg-white/5">
+            <NavLink to="/F1p5v2" className="block px-4 py-3 text-xs font-bold uppercase tracking-widest text-white/50 hover:text-white hover:bg-white/5">
             F1.5 </NavLink>
             </div>
           </div>
@@ -62,6 +63,7 @@ return (
         <Route path="/constructorstandings" element={<ConstructorStandings />} />
         <Route path="/F1p5" element={<F1p5 />} />
         <Route path="/driverstandingsv2" element={<Standingsv2 />} />
+        <Route path="/F1p5v2" element={<F1p5v2/>} />
       </Routes>
   </div>
 )
